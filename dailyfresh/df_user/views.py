@@ -100,3 +100,13 @@ def login_handle(request):
 # 主页
 def index(request):
     return render(request,'index.html')
+
+# 用户中心
+def user_center_info(request):
+    return render(request,'df_user/user_center_info.html')
+# 用户订单
+def user_center_order(request):
+    return render(request,'df_user/user_center_order.html')
+# 购物车
+def cart(request):
+    return render(request,'df_user/cart.html')

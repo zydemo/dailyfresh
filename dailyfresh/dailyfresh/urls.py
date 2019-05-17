@@ -25,4 +25,7 @@ urlpatterns = [
     path('login_handle/', views.login_handle),# 登录判断
     path('register_exist/', views.register_exist), # js判断用户名是否存在
     path('', views.index,name='index'),
+    path('user_center_info/', views.user_center_info),
+    path('user_center_order/', views.user_center_order),
+    path('cart/', views.cart),
 ]
