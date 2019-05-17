@@ -20,4 +20,9 @@ from df_user import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', views.register),
+    path('register_handle/', views.register_handle),
+    path('login/', views.login),
+    path('login_handle/', views.login_handle),# 登录判断
+    path('register_exist/', views.register_exist), # js判断用户名是否存在
+    path('', views.index,name='index'),
 ]

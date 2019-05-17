@@ -1,5 +1,5 @@
-$(function(){
-
+$(function(){       //$(function()){}等价于$(document).ready(function(){})
+                    //这是为了防止文档在完全加载（就绪）之前运行 jQuery 代码。
 	var error_name = false;
 	var error_password = false;
 	var error_check_password = false;
@@ -23,11 +23,11 @@ $(function(){
 		check_email();
 	});
 
-	$('#allow').click(function() {
-		if($(this).is(':checked'))
-		{
+	$('#allow').click(function() {  //绑定点击事件
+		if($(this).is(':checked'))  //:checked返回封装了所有选中的表单域元素的jQuery对象。
+		{                            //如果找不到任何相应的匹配，则返回一个空的jQuery对象。
 			error_check = false;
-			$(this).siblings('span').hide();
+			$(this).siblings('span').hide(); //查找每个allow元素的所有标签为 "span" 的所有同胞元素：
 		}
 		else
 		{
@@ -48,8 +48,15 @@ $(function(){
 		}
 		else
 		{
-			$('#user_name').next().hide();
-			error_name = false;
+			$.get('/register_exist/?uname='+$('#user_name').val(),function (data) {
+				if (data.count == 1){
+					$('#user_name').next().html('用户名已存在').show();
+					error_name = true;
+				}else{
+					$('#user_name').next().hide();
+					error_name = false;
+				}
+            });
 		}
 	}
 
@@ -67,7 +74,6 @@ $(function(){
 			error_password = false;
 		}		
 	}
-
 
 	function check_cpwd(){
 		var pass = $('#pwd').val();
@@ -88,9 +94,9 @@ $(function(){
 	}
 
 	function check_email(){
-		var re = /^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$/;
+		var re = /^[a-zA-Z0-9][\w\.\-]*@[a-zA-Z0-9\-]+(\.[a-zA-Z]{2,5}){1,2}$/;
 
-		if(re.test($('#email').val()))
+		if(re.test($('#email').val())) //test() 方法用于检测一个字符串是否匹配某个模式.
 		{
 			$('#email').next().hide();
 			error_email = false;
@@ -99,13 +105,12 @@ $(function(){
 		{
 			$('#email').next().html('你输入的邮箱格式不正确')
 			$('#email').next().show();
-			error_check_password = true;
+			error_email = true;
 		}
 
 	}
 
-
-	$('#reg_form').submit(function() {
+	$('#zhuce').click(function() { //提交按钮,所有验证通过方可提交
 		check_user_name();
 		check_pwd();
 		check_cpwd();
@@ -113,6 +118,7 @@ $(function(){
 
 		if(error_name == false && error_password == false && error_check_password == false && error_email == false && error_check == false)
 		{
+		    $('#zhuceform').submit();   //提交表单
 			return true;
 		}
 		else
