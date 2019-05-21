@@ -96,17 +96,33 @@ def login_handle(request):
             'upwd': upwd
         }
         return render(request,'df_user/login.html',context)
-
+# 注销
+def logout(request):
+    if 'user_name' in request.session:
+        del request.session['user_name']
+    return redirect('/')
 # 主页
 def index(request):
     return render(request,'index.html')
 
 # 用户中心
 def user_center_info(request):
-    return render(request,'df_user/user_center_info.html')
+    context = {
+        'title':'天天生鲜-用户中心',
+    }
+    return render(request,'df_user/user_center_info.html',context)
 # 用户订单
 def user_center_order(request):
-    return render(request,'df_user/user_center_order.html')
+    context = {
+        'title': '天天生鲜-用户中心',
+    }
+    return render(request,'df_user/user_center_order.html',context)
 # 购物车
 def cart(request):
     return render(request,'df_user/cart.html')
+# 收货地址
+def user_center_site(request):
+    context = {
+        'title': '天天生鲜-用户中心',
+    }
+    return render(request,'df_user/user_center_site.html',context)

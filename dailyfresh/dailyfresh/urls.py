@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,re_path
 from df_user import views
 
 urlpatterns = [
@@ -27,5 +27,9 @@ urlpatterns = [
     path('', views.index,name='index'),
     path('user_center_info/', views.user_center_info),
     path('user_center_order/', views.user_center_order),
+    path('user_center_site/', views.user_center_site),
+    path('logout/', views.logout),
     path('cart/', views.cart),
+    path('ueditor/',include('DjangoUeditor.urls')),
+    re_path('^static/media/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ]

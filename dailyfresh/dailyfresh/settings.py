@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'df_user',
+    'df_goods',
+    'DjangoUeditor',
 ]
 
 MIDDLEWARE = [
@@ -126,4 +128,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static'),
 ]
+
+# 设置文件上传路径，图片上传、文件上传都会存放在此目录里
+MEDIA_URL = '/static/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/media').replace('\\','/')
