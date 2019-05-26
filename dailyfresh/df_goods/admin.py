@@ -7,7 +7,7 @@ class TypeInfoAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'ttitle')
 
 class GoodsInfoAdmin(admin.ModelAdmin):
-    list_per_page = 15
+    list_per_page = 10
     list_display = ['id','gtitle','gprice','gunit','gclick','gkucun','gtype']
     list_display_links = ('id', 'gtitle','gtype')
 
