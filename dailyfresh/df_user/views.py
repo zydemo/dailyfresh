@@ -101,12 +101,7 @@ def logout(request):
     if 'user_name' in request.session:
         del request.session['user_name']
     return redirect('/')
-# 主页
-def index(request):
-    context = {
-        'title':'首页',
-    }
-    return render(request,'index.html',context)
+
 
 # 用户中心
 def user_center_info(request):
