@@ -21,10 +21,11 @@ class GoodsInfo(models.Model):
     isDelete = models.BooleanField('是否删除',default=False)
     gjianjie = models.CharField('简介',max_length=200)     #商品简介
     gkucun = models.IntegerField('库存')
-    gpic = models.ImagerField(upload_to='article_img/',verbose_name='商品图片',null=True,blank=True)
-    gcontent = models.UEditorField('详细介绍', height=300, width=1000,toolbars='full',imagePath='upimg/',
+    gpic = models.ImageField(upload_to='article_img/',verbose_name='商品图片',null=True,blank=True)
+    gcontent = UEditorField('详细介绍', height=300, width=1000,toolbars='full',imagePath='upimg/',
                                filePath='upfile/',upload_settings={'imageMaxSize':1024000},
                                settings={},command=None,blank=True)
+    # gadv = models.BooleanField(default=False)   #商品推荐
     class Meta:
         verbose_name = '商品信息'
         verbose_name_plural = '商品信息'

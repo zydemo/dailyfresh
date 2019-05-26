@@ -7,7 +7,7 @@ from django.http import JsonResponse,HttpResponseRedirect
 # 注册
 def register(request):
     context = {
-        'title':'天天生鲜-注册',
+        'title':'注册',
     }
     return render(request,'df_user/register.html',context)
 
@@ -48,7 +48,7 @@ def register_exist(request):
 def login(request):
     uname = request.COOKIES.get('uname','') # 获取cookie
     context = {
-        'title': '天天生鲜-登录',
+        'title': '登录',
         'error_name':0,
         'error_pwd':0,
         'uname':uname,
@@ -80,7 +80,7 @@ def login_handle(request):
             return red
         else:
             context = {
-                'title':'天天生鲜-登录',
+                'title':'登录',
                 'error_name':0, # 用户名正确
                 'error_pwd':1, # 密码错误
                 'uname':uname,
@@ -89,7 +89,7 @@ def login_handle(request):
             return render(request,'df_user/login.html',context)
     else:
         context = {
-            'title': '天天生鲜-登录',
+            'title': '登录',
             'error_name': 1,
             'error_pwd': 0,
             'uname': uname,
@@ -103,18 +103,21 @@ def logout(request):
     return redirect('/')
 # 主页
 def index(request):
-    return render(request,'index.html')
+    context = {
+        'title':'首页',
+    }
+    return render(request,'index.html',context)
 
 # 用户中心
 def user_center_info(request):
     context = {
-        'title':'天天生鲜-用户中心',
+        'title':'用户中心',
     }
     return render(request,'df_user/user_center_info.html',context)
 # 用户订单
 def user_center_order(request):
     context = {
-        'title': '天天生鲜-用户中心',
+        'title': '用户中心',
     }
     return render(request,'df_user/user_center_order.html',context)
 # 购物车
@@ -123,6 +126,6 @@ def cart(request):
 # 收货地址
 def user_center_site(request):
     context = {
-        'title': '天天生鲜-用户中心',
+        'title': '用户中心',
     }
     return render(request,'df_user/user_center_site.html',context)
