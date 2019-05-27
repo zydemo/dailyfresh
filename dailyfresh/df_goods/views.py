@@ -29,3 +29,42 @@ def index(request):
         'type5': type5, 'type51': type51,
     }
     return render(request,'index.html',context)
+# 详情页
+def detail(request,sid):
+    # 通过id查询指定的产品
+    goods = GoodsInfo.objects.get(id=int(sid))
+    # 点击量
+    goods.gclick = goods.gclick + 1
+    goods.save()
+    # 获取当前分类下的新品推荐
+    news = goods.gtype.goodsinfo_set.order_by('-id')[0:2]
+    context = {
+        # title呈现为：分类名-产品标题
+        'title': goods.gtype.ttitle + "-" + goods.gtitle,
+        'goods':goods,
+        'news':news,
+        'sid':sid,
+    }
+    response =  render(request,'df_goods/detail.html',context)
+    # 记录最近浏览,在用户中心使用
+    if request.session.has_key('user_id'): # 判断是否登录
+        key = str(request.session.get('user_id'))
+        goods_ids = request.session.get(key,'')
+        print("***",goods_ids,key)
+        goods_id = str(goods.id)
+        # 判断是否有浏览记录，也就是看过产品
+        if goods_ids != '':
+            # 如果已经存在则删除掉
+            if goods_ids.count(goods_id) >= 1:
+                goods_ids.remove(goods_id)
+            # 添加到第一个
+            goods_ids.insert(0, goods_id)
+            # 如果超过6个则删除最后一个
+            if len(goods_ids) >= 6:
+                del goods_ids[5]
+        else:
+            goods_ids = []
+            goods_ids.append(goods_id)
+        request.session[key] = goods_ids
+    return response
+
