@@ -153,8 +153,7 @@
 		<a href="#">全部分类</a>
 		<span>></span>
 		<a href="#">新鲜水果</a>
-		<span>></span>
-		<a href="#">商品详情</a>
+		<span>></span><span>{{goods.gtitle}}</span>
 	</div>
 
 	<div class="goods_detail_con clearfix">
@@ -162,9 +161,13 @@
 
 		<div class="goods_detail_list fr">
 			<h3>{{goods.gtitle}}</h3>
+            {% if goods.gjianjie|length >= 115 %}
+            <p>{{goods.gjianjie|slice:'115'}}......</p>
+            {% else %}
 			<p>{{goods.gjianjie}}</p>
+            {% endif %}
 			<div class="prize_bar">
-				<span class="show_pirze">¥<em>{{goods.gprice}}</em></span>
+				<span class="show_pirze">¥<em id="gprice">{{goods.gprice}}</em></span>
 				<span class="show_unit">单  位：{{goods.gunit}}</span>
 			</div>
 			<div class="goods_num clearfix">
@@ -208,7 +211,7 @@
 			<div class="tab_content">
 				<dl>
 					<dt>商品详情：</dt>
-					<dd>{{goods.gcontent}}</dd>
+					<dd>{{ goods.gcontent|safe }}</dd>
 				</dl>
 			</div>
 
