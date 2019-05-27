@@ -152,8 +152,13 @@
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
-		<a href="#">新鲜水果</a>
-		<span>></span><span>{{goods.gtitle}}</span>
+		<a href="#">{{goods.gtype.ttitle}}</a>
+		<span>></span>
+        {% if goods.gtitle|length >= 20 %}
+        <span>{{goods.gtitle|slice:'20'}}...</span>
+        {% else %}
+		<span>{{goods.gtitle}}</span>
+        {% endif %}
 	</div>
 
 	<div class="goods_detail_con clearfix">

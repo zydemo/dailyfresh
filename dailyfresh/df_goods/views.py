@@ -38,9 +38,14 @@ def detail(request,sid):
     goods.save()
     # 获取当前分类下的新品推荐
     news = goods.gtype.goodsinfo_set.order_by('-id')[0:2]
+    # 如果产品标题太长，截取20位
+    if len(goods.gtitle) >= 20:
+        title = goods.gtitle[0:20]+"..."
+    else:
+        title = goods.gtitle
     context = {
         # title呈现为：分类名-产品标题
-        'title': goods.gtype.ttitle + "-" + goods.gtitle,
+        'title': goods.gtype.ttitle + "-" + title,
         'goods':goods,
         'news':news,
         'sid':sid,
