@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import *
 from hashlib import sha1
 from django.http import JsonResponse,HttpResponseRedirect
+from . import user_decorator
 
 # https://github.com/shihao1010/tiantianshengxian
 # 注册
@@ -98,27 +99,37 @@ def login_handle(request):
         return render(request,'df_user/login.html',context)
 # 注销
 def logout(request):
-    if 'user_name' in request.session:
-        del request.session['user_name']
+    # flush()：删除当前的会话数据并删除会话的Cookie
+    request.session.flush()
+    # 另一种方法
+    # if 'user_name' in request.session:
+    #     删除会话
+    #     del request.session['user_name']
     return redirect('/')
 
 
-# 用户中心
+# 用户中心，装饰器
+@user_decorator.login
 def user_center_info(request):
     context = {
         'title':'用户中心',
     }
     return render(request,'df_user/user_center_info.html',context)
-# 用户订单
+
+# 用户订单，装饰器
+@user_decorator.login
 def user_center_order(request):
     context = {
         'title': '用户中心',
     }
     return render(request,'df_user/user_center_order.html',context)
+
 # 购物车
 def cart(request):
     return render(request,'df_user/cart.html')
-# 收货地址
+
+# 收货地址，装饰器
+@user_decorator.login
 def user_center_site(request):
     context = {
         'title': '用户中心',
