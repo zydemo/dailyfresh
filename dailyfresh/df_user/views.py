@@ -100,11 +100,10 @@ def login_handle(request):
 # 注销
 def logout(request):
     # flush()：删除当前的会话数据并删除会话的Cookie
-    request.session.flush()
+    # request.session.flush()
     # 另一种方法
-    # if 'user_name' in request.session:
-    #     删除会话
-    #     del request.session['user_name']
+    del request.session['user_name']
+    del request.session['user_id']
     return redirect('/')
 
 
