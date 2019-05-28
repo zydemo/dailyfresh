@@ -1,0 +1,4 @@
+INSERT into df_goods_goodsinfo(gtitle,gprice,gunit,gclick,gjianjie,gkucun,gpic,gcontent,isDelete,gtype_id)VALUES 
+('西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜',22.5,'1.25kg',0,'西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜',
+100,'article_img/201905/20190526175712_10.jpg',
+'<p><img src="/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg" title="" alt="05d0d391e61dd0e8.jpg"/></p>',0,5);

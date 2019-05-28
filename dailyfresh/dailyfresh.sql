@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : first
-Source Server Version : 50722
+Source Server Version : 50724
 Source Host           : localhost:3306
 Source Database       : dailyfresh
 
 Target Server Type    : MYSQL
-Target Server Version : 50722
+Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2019-05-26 18:07:01
+Date: 2019-05-28 17:55:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -126,7 +126,7 @@ CREATE TABLE `auth_user` (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'pbkdf2_sha256$120000$QU55PtHNepan$RbaijUnGoYc4uMyj9Sd9Oc578VWRNtZRHRvh+L21/nE=', '2019-05-26 04:06:06.378675', '1', 'admin', '', '', '123@163.com', '1', '1', '2019-05-26 03:17:35.888724');
+INSERT INTO `auth_user` VALUES ('1', 'pbkdf2_sha256$120000$QU55PtHNepan$RbaijUnGoYc4uMyj9Sd9Oc578VWRNtZRHRvh+L21/nE=', '2019-05-27 01:45:43.919289', '1', 'admin', '', '', '123@163.com', '1', '1', '2019-05-26 03:17:35.888724');
 
 -- ----------------------------
 -- Table structure for `auth_user_groups`
@@ -185,17 +185,50 @@ CREATE TABLE `df_goods_goodsinfo` (
   PRIMARY KEY (`id`),
   KEY `df_goods_goodsinfo_gtype_id_63a02cef_fk_df_goods_typeinfo_id` (`gtype_id`),
   CONSTRAINT `df_goods_goodsinfo_gtype_id_63a02cef_fk_df_goods_typeinfo_id` FOREIGN KEY (`gtype_id`) REFERENCES `df_goods_typeinfo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of df_goods_goodsinfo
 -- ----------------------------
-INSERT INTO `df_goods_goodsinfo` VALUES ('1', '展卉 海南千禧圣女果', '21.80', '500g', '1', '0', '圣女果，北方常被称为小西红柿，正式名称为小番茄果，是一年生草本植物，属茄科番茄属。植株最高时能长到2米。具有生津止渴、健胃消食、清热解毒、凉血平肝，补血养血和增进食欲的功效。', '100', 'article_img/201905/20190526174010_31.jpg', '<p>&nbsp;&nbsp;&nbsp;&nbsp;它根系发达，再生能力强，侧根发生多，大部份分布于土表30厘米的土层内。植株生长强健，有茎蔓自封顶的，品种较少；有无限生长的，株高2米以上。叶为奇数羽状复叶，小叶多而细。</p><p style=\"text-align: center;\"><img src=\"/static/media/upimg/圣女果_20190526155214_711.jpg\" title=\"\" alt=\"圣女果.jpg\"/></p><p>&nbsp;&nbsp;&nbsp;&nbsp;果实鲜艳，有红、黄、绿等果色，单果重一般为10～30克，果实以圆球型为主；种子比普通番茄小，心形。密被茸毛，百粒重1.2～1.5克。果实直径约1～3厘米，鲜红色。</p>', '1');
-INSERT INTO `df_goods_goodsinfo` VALUES ('2', '渔鼎鲜 挪威冰鲜三文鱼（大西洋鲑）去皮纯肉400g 日料刺身', '89.50', '400g', '2', '0', '渔鼎鲜 挪威冰鲜三文鱼（大西洋鲑）去皮纯肉 日料刺身', '200', 'article_img/201905/20190526173903_19.jpg', '<p><img src=\"/static/media/upimg/58fd7e13N26b6af41_20190526173813_788.jpg\" title=\"\" alt=\"58fd7e13N26b6af41.jpg\"/></p>', '2');
-INSERT INTO `df_goods_goodsinfo` VALUES ('3', '东来顺羔羊后腿切片400g 内蒙新鲜羔羊后腿肉片清真羊肉卷 涮火锅食材', '62.80', '400g', '3', '0', '东来顺羔羊后腿切片，内蒙新鲜羔羊后腿肉片清真羊肉卷 涮火锅食材', '300', 'article_img/201905/20190526175110_45.jpg', '<p><img src=\"/static/media/upimg/1c629c5a8b5776c4_20190526175048_241.jpg\" style=\"\"/></p><p><img src=\"/static/media/upimg/3b0d93fe198d4260_20190526175048_483.jpg\" style=\"\"/></p><p><br/></p>', '3');
+INSERT INTO `df_goods_goodsinfo` VALUES ('1', '展卉 海南千禧圣女果', '21.80', '500g', '154', '0', '圣女果，北方常被称为小西红柿，正式名称为小番茄果，是一年生草本植物，属茄科番茄属。植株最高时能长到2米。具有生津止渴、健胃消食、清热解毒、凉血平肝，补血养血和增进食欲的功效。', '100', 'article_img/201905/20190526174010_31.jpg', '<p>&nbsp;&nbsp;&nbsp;&nbsp;它根系发达，再生能力强，侧根发生多，大部份分布于土表30厘米的土层内。植株生长强健，有茎蔓自封顶的，品种较少；有无限生长的，株高2米以上。叶为奇数羽状复叶，小叶多而细。</p><p style=\"text-align: center;\"><img src=\"/static/media/upimg/圣女果_20190526155214_711.jpg\" title=\"\" alt=\"圣女果.jpg\"/></p><p>&nbsp;&nbsp;&nbsp;&nbsp;果实鲜艳，有红、黄、绿等果色，单果重一般为10～30克，果实以圆球型为主；种子比普通番茄小，心形。密被茸毛，百粒重1.2～1.5克。果实直径约1～3厘米，鲜红色。</p>', '1');
+INSERT INTO `df_goods_goodsinfo` VALUES ('2', '渔鼎鲜 挪威冰鲜三文鱼（大西洋鲑）去皮纯肉400g 日料刺身', '89.50', '400g', '41', '0', '渔鼎鲜 挪威冰鲜三文鱼（大西洋鲑）去皮纯肉 日料刺身', '200', 'article_img/201905/20190526173903_19.jpg', '<p><img src=\"/static/media/upimg/58fd7e13N26b6af41_20190526173813_788.jpg\" title=\"\" alt=\"58fd7e13N26b6af41.jpg\"/></p>', '2');
+INSERT INTO `df_goods_goodsinfo` VALUES ('3', '东来顺羔羊后腿切片400g 内蒙新鲜羔羊后腿肉片清真羊肉卷 涮火锅食材', '62.80', '400g', '9', '0', '东来顺羔羊后腿切片，内蒙新鲜羔羊后腿肉片清真羊肉卷 涮火锅食材', '300', 'article_img/201905/20190526175110_45.jpg', '<p><img src=\"/static/media/upimg/1c629c5a8b5776c4_20190526175048_241.jpg\" style=\"\"/></p><p><img src=\"/static/media/upimg/3b0d93fe198d4260_20190526175048_483.jpg\" style=\"\"/></p><p><br/></p>', '3');
 INSERT INTO `df_goods_goodsinfo` VALUES ('4', '麻酱鸡蛋农家秘制红泥腌制五香流油咸鸡蛋20枚', '38.00', '20枚', '5', '0', '麻酱鸡蛋农家秘制红泥腌制五香流油咸鸡蛋20枚', '200', 'article_img/201905/20190526175452_1.jpg', '<p><img src=\"/static/media/upimg/5ce21e6cN88e0b37c_20190526175438_777.jpg\" style=\"\"/></p><p><img src=\"/static/media/upimg/5ce21e6dNdbf3ff7c_20190526175438_929.jpg\" style=\"\"/></p><p><br/></p>', '4');
-INSERT INTO `df_goods_goodsinfo` VALUES ('5', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.80', '1.25kg', '10', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
-INSERT INTO `df_goods_goodsinfo` VALUES ('6', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '15', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('5', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.80', '1.25kg', '14', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
+INSERT INTO `df_goods_goodsinfo` VALUES ('6', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '1000.50', '1.85kg*5袋', '17', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('7', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('8', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '10.00', '1.85kg*5袋', '15', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('9', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '15.00', '1.85kg*5袋', '13', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('10', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('11', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('12', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '20.00', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('13', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('14', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '2.50', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('15', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('16', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100.50', '1.85kg*5袋', '2', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('17', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('18', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '1', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('19', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('20', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('21', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '1', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('22', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('23', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('24', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('25', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('26', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('27', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('28', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '1', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('29', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '89.90', '1.85kg*5袋', '0', '0', '五芳斋 儿童面点 老母鸡汤小馄饨 1.85kg 5袋装 速冻食品小云吞', '100', 'article_img/201905/20190526175906_31.jpg', '<p><img src=\"/static/media/upimg/5aa73055N0a1a922c_20190526175900_611.jpg\" title=\"\" alt=\"5aa73055N0a1a922c.jpg\"/></p>', '6');
+INSERT INTO `df_goods_goodsinfo` VALUES ('30', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.80', '1.25kg', '0', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
+INSERT INTO `df_goods_goodsinfo` VALUES ('31', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.50', '1.25kg', '0', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
+INSERT INTO `df_goods_goodsinfo` VALUES ('32', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.50', '1.25kg', '0', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
+INSERT INTO `df_goods_goodsinfo` VALUES ('33', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.50', '1.25kg', '0', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
+INSERT INTO `df_goods_goodsinfo` VALUES ('34', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.50', '1.25kg', '0', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
+INSERT INTO `df_goods_goodsinfo` VALUES ('35', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.50', '1.25kg', '0', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
+INSERT INTO `df_goods_goodsinfo` VALUES ('36', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.50', '1.25kg', '0', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
+INSERT INTO `df_goods_goodsinfo` VALUES ('37', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.50', '1.25kg', '0', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
+INSERT INTO `df_goods_goodsinfo` VALUES ('38', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.50', '1.25kg', '3', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
+INSERT INTO `df_goods_goodsinfo` VALUES ('39', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '22.50', '1.25kg', '0', '0', '西红柿 番茄 粉茄 约1.25kg 新鲜蔬菜', '100', 'article_img/201905/20190526175712_10.jpg', '<p><img src=\"/static/media/upimg/05d0d391e61dd0e8_20190526175702_826.jpg\" title=\"\" alt=\"05d0d391e61dd0e8.jpg\"/></p>', '5');
 
 -- ----------------------------
 -- Table structure for `df_goods_typeinfo`
@@ -353,4 +386,5 @@ CREATE TABLE `django_session` (
 -- ----------------------------
 -- Records of django_session
 -- ----------------------------
+INSERT INTO `django_session` VALUES ('4m5i2rxi0ku1smqvgka4bpyv7p8ym5rn', 'OGNmMzdkNjFjZGFmOTU4OWY1NDA5MjA1N2M3Y2VjM2JjZGQwMjVlZDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlMzZiZGU3NTJlYTRkNmIwY2FmZWU2YTVmNzA5OWZjN2JhYWQ4YjliIn0=', '2019-06-10 01:45:43.974289');
 INSERT INTO `django_session` VALUES ('rgw9zokzd7lg44y6g3tacj5lpckp1ljv', 'OGNmMzdkNjFjZGFmOTU4OWY1NDA5MjA1N2M3Y2VjM2JjZGQwMjVlZDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlMzZiZGU3NTJlYTRkNmIwY2FmZWU2YTVmNzA5OWZjN2JhYWQ4YjliIn0=', '2019-06-09 04:06:06.501682');
