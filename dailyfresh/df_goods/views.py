@@ -21,7 +21,7 @@ def index(request):
     type51 = typelist[5].goodsinfo_set.order_by('-gclick')[0:4]
 
     context = {
-        'title':'首页',
+        'title':'首页','guest_cart':1,
         'type0': type0, 'type01': type01,
         'type1': type1, 'type11': type11,
         'type2': type2, 'type21': type21,

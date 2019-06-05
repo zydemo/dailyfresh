@@ -10,7 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('df_goods.urls')),
     path('',include('df_user.urls')),
-    path('cart/', views.cart),
+    path('',include('df_cart.urls')),
     path('ueditor/',include('DjangoUeditor.urls')),
     re_path('^static/media/(?P<path>.*)$',serve,{'document_root':settings.MEDIA_ROOT}),
 ]

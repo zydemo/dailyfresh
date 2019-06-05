@@ -112,6 +112,7 @@ def logout(request):
 def user_center_info(request):
     context = {
         'title':'用户中心',
+        'page_name':1,
     }
     return render(request,'df_user/user_center_info.html',context)
 
@@ -120,17 +121,15 @@ def user_center_info(request):
 def user_center_order(request):
     context = {
         'title': '用户中心',
+        'page_name': 1,
     }
     return render(request,'df_user/user_center_order.html',context)
-
-# 购物车
-def cart(request):
-    return render(request,'df_user/cart.html')
 
 # 收货地址，装饰器
 @user_decorator.login
 def user_center_site(request):
     context = {
         'title': '用户中心',
+        'page_name': 1,
     }
     return render(request,'df_user/user_center_site.html',context)

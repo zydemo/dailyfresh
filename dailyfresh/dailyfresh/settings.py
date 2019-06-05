@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'df_user',
     'df_goods',
     'DjangoUeditor',
+    'df_cart',
 ]
 
 MIDDLEWARE = [
