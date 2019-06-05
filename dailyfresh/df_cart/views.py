@@ -12,6 +12,8 @@ def cart(request):
         'title':'购物车',
         'page_name': 1,
         'carts':carts,
+        # 加个判断值，这个值使cart页面中继承base时不用base里面的刷新购物车功能
+        'refresh':1,
 
     }
     return render(request,'df_cart/cart.html',context)
@@ -61,7 +63,7 @@ def delete(request,gid):
         if request.is_ajax():
             goods = CartInfo.objects.get(id=int(gid))
             goods.delete()
-            data={'ol':1}
+            data={'ok':1}
     except Exception as e:
         data = {'ok':0,'e':e}
     return JsonResponse(data)

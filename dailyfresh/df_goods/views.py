@@ -50,6 +50,7 @@ def detail(request,sid):
         'goods':goods,
         'news':news,
         'sid':sid,
+        'guest_cart': 1
     }
     response =  render(request,'df_goods/detail.html',context)
     # 记录最近浏览,在用户中心使用
@@ -94,7 +95,8 @@ def list(request,tid,pindex,sort): # 类型id,页码,排序规则（人气、价
         'sort':sort,
         'typeinfo':typeinfo,
         'paginator':paginator,
-        'goods_list':goods_list
+        'goods_list':goods_list,
+        'guest_cart':1
     }
     return render(request,'df_goods/list.html',context)
 

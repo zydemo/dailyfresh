@@ -4,18 +4,7 @@
 
     <script type="text/javascript" src='{% static "js/jquery-ui.min.js" %}'></script>
     <script type="text/javascript" src='{% static "js/slide.js" %}'></script>
-{% if request.session.user_name|default:'' != '' %}
-<script>
-    $(function () {
-        f();
-    });
-    function f() { //进入页面时刷新购物车数量  规定此时商品id和数量都为0
-        $.get('/cart/add0_0',function (data) {
-            $('#show_count').text(data.count);
-        });
-    }
-</script>
-{% endif %}
+
 {% endblock head %}
 {% block body %}
 	<!--<div class="header_con">-->
