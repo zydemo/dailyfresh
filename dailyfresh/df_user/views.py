@@ -110,9 +110,17 @@ def logout(request):
 # 用户中心，装饰器
 @user_decorator.login
 def user_center_info(request):
+    username = request.session.get('user_name')
+    user=UserInfo.objects.filter(uname=username).first()
+
     context = {
         'title':'用户中心',
         'page_name':1,
+        'user_phone':user.uphone,
+        'user_address':user.uaddress,
+        'user_name':username,
+        'user_email':user.uemail,
+
     }
     return render(request,'df_user/user_center_info.html',context)
 
@@ -128,8 +136,17 @@ def user_center_order(request):
 # 收货地址，装饰器
 @user_decorator.login
 def user_center_site(request):
+    user = UserInfo.objects.get(id=request.session['user_id'])
+    if request.method == 'POST':
+        post = request.POST
+        user.ushou = post.get('ushou')
+        user.uyoubian = post.get('uyoubian')
+        user.uphone = post.get('uphone')
+        user.uaddress = post.get('uaddress')
+        user.save()
     context = {
         'title': '用户中心',
         'page_name': 1,
+        'user':user,
     }
     return render(request,'df_user/user_center_site.html',context)

@@ -68,11 +68,3 @@ def delete(request,gid):
         data = {'ok':0,'e':e}
     return JsonResponse(data)
 
-# 结算
-def place_order(request):
-    context = {
-        'title': '提交订单',
-        'page_name': 1,
-
-    }
-    return render(request, 'df_cart/place_order.html', context)

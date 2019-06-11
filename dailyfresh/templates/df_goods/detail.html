@@ -20,13 +20,16 @@
                 if(num){        //如果不为空
                     if (num < 1)        //如果小于1
                         num = 1;
-                    price = parseFloat($('#gprice').text());    //text() 方法方法设置或返回被选元素的文本内容。
+                    kucun = parseInt($('.goods_kucun').text());
+                    if(num>=kucun)
+                        num=kucun;
+                    price = parseFloat($('#gprice').text());    //text() 方法设置或返回被选元素的文本内容。
                     total = num * price;
                     $('#shuliang').val(num);
                     $('#gtotal').text(total.toFixed(2) + '元');  //toFixed(num) 方法可把原来的数四舍五入为小数位数为num的数字。
                 } else {
                     $('#shuliang').val(1);
-                    price = parseFloat($('#gprice').text());    //text() 方法方法设置或返回被选元素的文本内容。
+                    price = parseFloat($('#gprice').text());    //text() 方法设置或返回被选元素的文本内容。
                     total = 1.0 * price;
                     $('#gtotal').text(total.toFixed(2) + '元');  //toFixed(num) 方法可把原来的数四舍五入为小数位数为num的数字。
                 }
@@ -49,9 +52,10 @@
                     'top': $to_x+7},
                     "fast",
                     function() {
-                        $(".add_jump").fadeOut('fast'
-                        //     function(){
-                        //     $('#show_count').html();
+                        $(".add_jump").fadeOut(
+                            'fast'
+                            // function(){
+                            // $('#show_count').html();
                         // }
                         );
                     }
@@ -65,6 +69,16 @@
                     $('#show_count').text(data.count);
                 });
             }
+            //点击购买 还得调整
+            $('#buy_btn').click(function () {
+                num = parseInt($('.num_show').val());
+                alert(num);
+                $.get('/cart/add{{goods.id}}_' + num + '/', function (data) {
+                    $('#show_count').text(data.count);
+                });
+                location.href = '/cart/add{{goods.id}}_' + num + '/';
+                });
+
         })
     </script>
 
@@ -122,18 +136,19 @@
 			<div class="prize_bar">
 				<span class="show_pirze">¥<em id="gprice">{{goods.gprice}}</em></span>
 				<span class="show_unit">单  位：{{goods.gunit}}</span>
+                <span class="show_unit">库  存：<span class="goods_kucun">{{goods.gkucun}}</span></span>
 			</div>
 			<div class="goods_num clearfix">
 				<div class="num_name fl">数 量：</div>
 				<div class="num_add fl">
-					<input type="text" class="num_show fl" value="1" id="shuliang">
+					<input type="text" class="num_show fl" value="1" maxlength="6" id="shuliang">
 					<a href="javascript:;" class="add fr" id="jiahao">+</a>
 					<a href="javascript:;" class="minus fr" id="jianhao">-</a>
 				</div> 
 			</div>
 			<div class="total">总价：<em id="gtotal">{{ goods.gprice }}元</em></div>
 			<div class="operate_btn">
-				<a href="javascript:;" class="buy_btn">立即购买</a>
+				<a href="javascript:;" class="buy_btn" id="buy_btn">立即购买</a>
 				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>				
 			</div>
 		</div>
