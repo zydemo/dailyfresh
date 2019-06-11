@@ -1,5 +1,105 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% block head %}
+<script>
+    $(function () {
+        var error_shou = false;
+        var error_address = false;
+        var error_youbian = false;
+        var error_phone = false;
+        $('#uphone').blur(function() {
+		check_phone();
+	    });
+        $('#ushou').blur(function() {
+		check_shou();
+	    });
+        $('#uaddress').blur(function() {
+		check_address();
+	    });
+        $('#uyoubian').blur(function() {
+		check_youbian();
+	    });
+        //手机号判断
+        function check_phone(){
+		var re = /^1[3456789]\d{9}$/;
+		if(re.test($('#uphone').val())) //test() 方法用于检测一个字符串是否匹配某个模式.
+		{
+			$('#uphone').next().hide();
+			error_phone = false;
+		}
+		else
+		{
+			$('#uphone').next().html('你输入的手机格式不正确');
+			$('#uphone').next().show();
+			error_phone = true;
+		}
+	    }
+	    //收件人判断
+        function check_shou(){
+		var len = $('#ushou').val().length;
+		if(len>0)
+		{
+			$('#ushou').next().hide();
+			error_shou = false;
+		}
+		else
+		{
+			$('#ushou').next().html('收件人不能为空');
+			$('#ushou').next().show();
+			error_shou = true;
+		}
+	    }
+        //详细地址判断
+        function check_address(){
+		var len = $('#uaddress').val().length;
+		if(len>0)
+		{
+			$('#uaddress').next().hide();
+			error_address = false;
+		}
+		else
+		{
+			$('#uaddress').next().html('详细地址不能为空');
+			$('#uaddress').next().show();
+			error_address = true;
+		}
+	    }
+
+	     //邮编判断
+        function check_youbian(){
+		var len = $('#uyoubian').val().length;
+		var re = /^\d{6}$/;
+		if(re.test($('#uyoubian').val()) && len>0)
+		{
+			$('#uyoubian').next().hide();
+			error_youbian = false;
+		}
+		else
+		{
+			$('#uyoubian').next().html('邮编输入有误');
+			$('#uyoubian').next().show();
+			error_youbian = true;
+		}
+	    }
+
+	    $('.info_submit').click(function () { //提交按钮,所有验证通过方可提交
+            check_shou();
+            check_address();
+            check_youbian();
+            check_phone();
+            if(error_phone == false && error_shou == false && error_youbian==false &&error_address==false){
+                $('.info_submit').submit();
+                return true;
+            }else{
+                return false;
+            }
+            
+        });
+    })
+    
+</script>
+
+{% endblock head %}
 {% block body %}
 	<div class="main_con clearfix">
 		<div class="left_menu_con clearfix">
@@ -35,24 +135,28 @@
                         {% csrf_token %}
 						<div class="form_group">
 							<label>收件人：</label>
-							<input type="text" name="ushou" value="{{user.ushou}}">
+							<input type="text" name="ushou" id="ushou" value="{{user.ushou}}">
+                            <span class="error_tip"></span>
 						</div>
 						<div class="form_group form_group2">
 							<label>详细地址：</label>
-							<textarea class="site_area" name="uaddress">{{user.uaddress}}</textarea>
+							<textarea class="site_area" id="uaddress" name="uaddress">{{user.uaddress}}</textarea>
+                            <span class="error_tip"></span>
 						</div>
 						<div class="form_group">
 							<label>邮编：</label>
-							<input type="text" name="uyoubian" value="{{user.uyoubian}}">
+							<input type="text" maxlength="6" name="uyoubian" id="uyoubian" value="{{user.uyoubian}}">
+                            <span class="error_tip"></span>
 						</div>
 						<div class="form_group">
 							<label>手机：</label>
-							<input type="text" name="uphone" value="{{user.uphone}}">
+							<input type="text" maxlength="11" name="uphone" id="uphone" value="{{user.uphone}}">
+                            <span class="error_tip"></span>
 						</div>
                     {% if user.uaddress|default:'' != '' %}
-						<input type="submit" name="" value="修改地址" class="info_submit">
+						<input type="submit" name="" value="修改地址" class="info_submit" id="change_address">
                     {% else %}
-                        <input type="submit" name="" value="新增地址" class="info_submit">
+                        <input type="submit" name="" value="新增地址" class="info_submit" id="new_address">
                     {% endif %}
 					</form>
 				</div>
