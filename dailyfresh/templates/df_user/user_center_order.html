@@ -26,7 +26,10 @@
 		<div class="right_content clearfix">
 				<h3 class="common_title2">全部订单</h3>
             {% if page|length == 0 %}
-            暂无订单，快去购买产品吧，<a href="/">返回首页</a>
+			 <div class="nofile" style="min-height:335px;text-align: center;">
+                  <img src='{% static "images/img_notfound.png" %}'>
+                  <p class="text" style="margin: 30px 0 30px;font-weight: bold;">暂无订单，快去购买产品吧，<a href="/">返回首页</a></p>
+             </div>
             {% else %}
 			{% for orderinfo in page %}
 				<ul class="order_list_th w978 clearfix">
