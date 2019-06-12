@@ -7,9 +7,7 @@
         var error_address = false;
         var error_youbian = false;
         var error_phone = false;
-        $('#uphone').blur(function() {
-		check_phone();
-	    });
+        //当输入域失去焦点 (blur) 时
         $('#ushou').blur(function() {
 		check_shou();
 	    });
@@ -18,6 +16,9 @@
 	    });
         $('#uyoubian').blur(function() {
 		check_youbian();
+	    });
+        $('#uphone').blur(function() {
+		check_phone();
 	    });
         //手机号判断
         function check_phone(){
@@ -67,9 +68,8 @@
 
 	     //邮编判断
         function check_youbian(){
-		var len = $('#uyoubian').val().length;
 		var re = /^\d{6}$/;
-		if(re.test($('#uyoubian').val()) && len>0)
+		if(re.test($('#uyoubian').val()))
 		{
 			$('#uyoubian').next().hide();
 			error_youbian = false;
@@ -93,12 +93,9 @@
             }else{
                 return false;
             }
-            
         });
     })
-    
 </script>
-
 {% endblock head %}
 {% block body %}
 	<div class="main_con clearfix">
@@ -106,7 +103,7 @@
 			<h3>用户中心</h3>
 			<ul>
 				<li><a href="/user_center_info/">· 个人信息</a></li>
-				<li><a href="/user_center_order/">· 全部订单</a></li>
+				<li><a href="/user_center_order/1/">· 全部订单</a></li>
 				<li><a href="/user_center_site/" class="active">· 收货地址</a></li>
 			</ul>
 		</div>

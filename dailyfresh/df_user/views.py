@@ -3,6 +3,9 @@ from .models import *
 from hashlib import sha1
 from django.http import JsonResponse,HttpResponseRedirect
 from . import user_decorator
+from df_order.models import OrderInfo
+# 导入自带的分页插件
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 # https://github.com/shihao1010/tiantianshengxian
 # 注册
@@ -126,12 +129,28 @@ def user_center_info(request):
 
 # 用户订单，装饰器
 @user_decorator.login
-def user_center_order(request):
-    context = {
-        'title': '用户中心',
-        'page_name': 1,
-    }
-    return render(request,'df_user/user_center_order.html',context)
+def user_center_order(request,index): # 需要传入页数
+    try:
+        user_id = request.session['user_id']
+        # 下单时间倒序排序
+        order_list = OrderInfo.objects.filter(user_id=int(user_id)).order_by('-odate')
+        paginator = Paginator(order_list,2) # 每页两条数据
+        try:
+            page = paginator.page(int(index))  # 获取当前页码的记录:<Page 1 of 2>
+        except PageNotAnInteger:
+            page = paginator.page(1)  # 如果用户输入的页码不是整数，显示第一页内容
+        except EmptyPage:
+            # paginator.num_pages 总页数
+            page = paginator.page(paginator.num_pages)  # 如果用户输入的页数不在系统的页码列表中时，显示最后一页
+        context = {
+            'title': '用户中心',
+            'page_name': 1,
+            'page':page,
+            'paginator':paginator
+        }
+        return render(request,'df_user/user_center_order.html',context)
+    except:
+        return redirect('/user_center_order/1/')
 
 # 收货地址，装饰器
 @user_decorator.login

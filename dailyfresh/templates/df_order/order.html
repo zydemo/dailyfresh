@@ -93,20 +93,66 @@
 		
 		<div class="mask"></div>
 	</div>
-	<script type="text/javascript" src="js/jquery-1.12.2.js"></script>
-	<script type="text/javascript">
-		$('#order_btn').click(function() {
-			localStorage.setItem('order_finish',2);
+<script>
+    $('#order_btn').click(function () {
+        // 检查收货地址
+        $('.user_info_check').each(function () {
+            text = $(this).text();
+            number = 0;
+            if (text == ''){
+                number = 1;
+            }
+        });
+        if(number == 1){
+            alert("请填写正确的收货地址");
+            window.location.href('/user_center_site/');
+        }
+        //获取所有id，拼接成字符串
+        cartids = '';
+        $('.goods_list_td').each(function () {
+            cartids = cartids + $(this).attr('id') + ',';
+        });
+        // 去掉最后一个,
+        cartids = cartids.substring(0,cartids.length-1);
+        total = {{ total_trans_price }}
 
-			$('.popup_con').fadeIn('fast', function() {
+        data = {
+            'cart_ids':cartids,
+            'total':total,
+            'csrfmiddlewaretoken':'{{ csrf_token }}'
+        };
 
-				setTimeout(function(){
-					$('.popup_con').fadeOut('fast',function(){
-						window.location.href = 'index.html';
-					});	
-				},3000)
-				
-			});
-		});
-	</script>
+        //先发请求
+        $.post('/order_handle/',data,function (data) {
+            //成功
+            if(data.ok == 1){
+                localStorage.setItem('order_finish',2);
+                $('.popup_con').fadeIn('fast',function () {
+                    setTimeout(function () {
+                        $('.popup_con').fadeOut('fast',function () {
+                            window.location.href = '/user_center_order/1/'
+                        });
+                    },2000);
+                });
+            }
+        });
+    });
+</script>
+
+<!--点击浏览器的返回按钮让页面刷新，防止购物车删除产品点击结算后页面后退到购物车删除产品还在的情况-->
+<script type="text/javascript" src='{% static "js/jquery.cookie.min.js" %}'></script>
+<script>
+     $(function(){
+        //这里的first_vist可以是任意的值,反正我们是获取不到这个值的。打印一下，发现获取不到的cookie为null
+        $first=$.cookie('first_vist');
+        if(!$first||$first=='null'||$first==null){
+            //第一次进页面，肯定是没有cookie的，所以这里设置cookie的值为1，时间为7天
+            $.cookie('first_vist','1',{ expires: 7 });
+        }else{
+            //然后等下次回到页面，肯定会取到cookie的值，然后我们就反其道而行，给cookie赋值为null，同时刷新页面
+            $.cookie('first_vist',null);
+            location.reload(true);
+        }
+    });
+</script>
 {% endblock body %}

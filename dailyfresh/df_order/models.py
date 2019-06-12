@@ -8,9 +8,10 @@ class OrderInfo(models.Model):
     user = models.ForeignKey(UserInfo,on_delete=models.CASCADE,verbose_name='订单用户')
     odate = models.DateTimeField(auto_now=True,verbose_name='下单时间')
     oIsPay = models.BooleanField(default=False,verbose_name='是否支付')
+    # 订单总价单独计算减少数据库频繁交互 不含运费
     ototal = models.DecimalField(max_digits=10,decimal_places=2,verbose_name='总价格')
     oaddress = models.CharField(max_length=300,verbose_name='订单地址')
-    # 订单总价单独计算减少数据库频繁交互
+
     class Meta:
         verbose_name='订单信息'
         verbose_name_plural = verbose_name

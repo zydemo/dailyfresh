@@ -80,16 +80,31 @@
             // kucun = $(this).parents('ul').find('.col03').find('.goods_kucun').text();
             kucun=parseFloat($(this).attr('kucun'));
             if(num){
-                if(num<1)
+                if(num<=1 && kucun>0){
                     num = 1;
                     $(this).val(num);
-                if(num>=kucun)
-                    num=kucun;
+                }else if(kucun > 0){
+                    if(num >= kucun){
+                        num=kucun;
+                        $(this).val(num);
+                    }
+                }else{
+                    num = 0;
                     $(this).val(num);
-            }else{
+                }
+                // if(num<1)
+                //     num = 1;
+                //     $(this).val(num);
+                // if(num>=kucun)
+                //     num=kucun;
+                //     $(this).val(num);
+            }else if(kucun > 0){
                 num = 1; //防止用户输入0后刷新页面值变为0
                 $(this).val(1);
-            }
+            }else{
+                    num = 0;
+                    $(this).val(num);
+                }
             total_s();
             total_all();
             //向数据库发送数据，修改商品数量
@@ -122,13 +137,33 @@
     });
     function go_order() {
         s = '';
+        var yes_kucun = true;
         $(':checked:not(#check_all)').each(function () {
-            id = $(this).parents('.cart_list_td').attr('id');
-            s = s+'cart_id='+id+'&';
+            kucun = $(this).parents('.cart_list_td').find('.goods_kucun').text();
+            if(kucun > 0) {
+                id = $(this).parents('.cart_list_td').attr('id');
+                s = s + 'cart_id=' + id + '&';
+            }else {
+                alert("库存为0的产品，不能购买");
+                yes_kucun = false;
+            }
         });
-        //删掉最后一个&
-        s = s.substring(0,s.length-1);
-        location.href = '/order?'+s;
+        //先判断选没选择库存为0的，然后再判断至少选择一个商品
+        if(yes_kucun){
+            if(s){
+                //删掉最后一个&
+                s = s.substring(0,s.length-1);
+                location.href = '/order?'+s;
+            }else{
+                // alert("请至少选择一个商品！");
+                //这个是可以弹窗提示
+                 $('.popup_con').fadeIn('fast',function () {
+                    setTimeout(function () {
+                        $('.popup_con').fadeOut('fast');
+                    },300);
+                });
+            }
+        }
     }
 </script>
 {% endblock head %}
@@ -176,6 +211,12 @@
 
 		<li class="col04"><a href="javascript:go_order()">去结算</a></li>
 	</ul>
+	<div class="popup_con">
+		<div class="popup">
+			<p>请至少选择一个商品！</p>
+		</div>
+		<div class="mask"></div>
+	</div>
 <!--点击浏览器的返回按钮让页面刷新，防止购物车删除产品点击结算后页面后退到购物车删除产品还在的情况-->
 <script type="text/javascript" src='{% static "js/jquery.cookie.min.js" %}'></script>
 <script>

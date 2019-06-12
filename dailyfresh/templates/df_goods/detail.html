@@ -17,12 +17,18 @@
             });
             $('#shuliang').blur(function () {
                 num = parseInt($('#shuliang').val());     //val() 方法返回或设置被选元素的值。
-                if(num){        //如果不为空
-                    if (num < 1)        //如果小于1
+                kucun = parseInt($('.goods_kucun').text());
+                if(num){ //如果不为空
+                    if(num <= 1){
                         num = 1;
-                    kucun = parseInt($('.goods_kucun').text());
-                    if(num>=kucun)
-                        num=kucun;
+                    }else if(kucun > 0){
+                            if(num >= kucun){
+                                num = kucun;
+                            }
+                        }else{
+                        alert("库存为0");
+                        num = 1;
+                    }
                     price = parseFloat($('#gprice').text());    //text() 方法设置或返回被选元素的文本内容。
                     total = num * price;
                     $('#shuliang').val(num);
@@ -64,7 +70,12 @@
                 s1();
             });
             function s1() {
-                num = parseInt($('.num_show').val());
+                kucun = parseInt($('.goods_kucun').text());
+                if(kucun > 0){
+                    num = parseInt($('.num_show').val());
+                }else{
+                    num = 0;
+                }
                 $.get('/cart/add{{goods.id}}_' + num + '/', function (data) {
                     $('#show_count').text(data.count);
                 });
@@ -72,7 +83,6 @@
             //点击购买 还得调整
             $('#buy_btn').click(function () {
                 num = parseInt($('.num_show').val());
-                alert(num);
                 $.get('/cart/add{{goods.id}}_' + num + '/', function (data) {
                     $('#show_count').text(data.count);
                 });
