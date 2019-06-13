@@ -146,6 +146,7 @@
             }else {
                 alert("库存为0的产品，不能购买");
                 yes_kucun = false;
+                return false;
             }
         });
         //先判断选没选择库存为0的，然后再判断至少选择一个商品

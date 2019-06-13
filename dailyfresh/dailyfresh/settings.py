@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# Django中设置session过期时间,防止TypeError出错is not JSON serializable
+SESSION_SERIALIZER='django.contrib.sessions.serializers.PickleSerializer'
 # Application definition
 
 INSTALLED_APPS = [

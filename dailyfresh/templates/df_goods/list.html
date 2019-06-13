@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% block head %}
+<script>
+    function add_cart() {
+         if ($('.login_btn').text().indexOf('登录') >= 0){
+                alert("请先登录后再购买");
+                location.href = '/login/';
+                return;
+         }else{
+             //这个也可以
+            // kucun = $('#add_cart').val('value').attr('value');
+            kucun = $('#add_cart').attr('value');
+            $('.popup_con').fadeIn('fast',function () {
+                setTimeout(function () {
+                    $('.popup_con').fadeOut('fast');
+                    window.location.href ='/cart/'+kucun
+                },2000);
+            });
+         }
+    }
+</script>
+{% endblock head %}
 {% block body %}
 
 	<div class="navbar_con">
@@ -80,11 +101,21 @@
                         {% else %}
 						<span class="unit" title="{{g.gunit}}">{{g.gunit}}</span>
                         {% endif %}
-						<a href="#" class="add_goods" title="加入购物车"></a>
+						{% if g.gkucun > 0 %}
+						<a href="/cart/add{{g.id}}_1/" class="add_goods" title="加入购物车"></a>
+                        {% else %}
+                        <a href="javascript:add_cart()" value="add{{g.id}}_0/" class="add_goods" id="add_cart" title="加入购物车"></a>
+                        {% endif %}
 					</div>
 				</li>
                 {% endfor %}
 			</ul>
+             <div class="popup_con">
+                <div class="popup">
+                    <p>已加购物车，库存为0不可购买！</p>
+                </div>
+                <div class="mask"></div>
+             </div>
 
 			<div class="pagenation">
             {% if page.has_previous %}

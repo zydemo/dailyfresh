@@ -101,13 +101,14 @@
             number = 0;
             if (text == ''){
                 number = 1;
+                return false;
             }
         });
         if(number == 1){
             alert("请填写正确的收货地址");
-            window.location.href('/user_center_site/');
-        }
-        //获取所有id，拼接成字符串
+            window.location.href='/user_center_site/';
+        }else{ //只有填写完正确收货地址才可以提交
+             //获取所有id，拼接成字符串
         cartids = '';
         $('.goods_list_td').each(function () {
             cartids = cartids + $(this).attr('id') + ',';
@@ -136,6 +137,8 @@
                 });
             }
         });
+        }
+
     });
 </script>
 

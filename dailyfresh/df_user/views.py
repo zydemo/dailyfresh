@@ -7,6 +7,7 @@ from df_order.models import OrderInfo
 from df_goods.models import GoodsInfo
 # 导入自带的分页插件
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from datetime import timedelta
 
 # https://github.com/shihao1010/tiantianshengxian
 # 注册
@@ -74,6 +75,7 @@ def login_handle(request):
         s1.update(upwd.encode())
         if s1.hexdigest() == users[0].upwd:
             url = request.COOKIES.get('url','/') # 获取登录之前的页面，如果没有跳转首页
+            print("***",url)
             red = HttpResponseRedirect(url)
             # 记住用户名，只有登录成功才可以记住
             if jizhu != 0:
@@ -82,6 +84,9 @@ def login_handle(request):
                 red.set_cookie('uname','',max_age=-1) # max_age指的是过期时间,当为-1时为立刻过期
             request.session['user_id'] = users[0].id #把用户id和名字放入session中
             request.session['user_name'] = uname
+            # 浏览器关闭时过期
+            # request.session.set_expiry(0)
+            request.session.set_expiry(timedelta(days=2))
             return red
         else:
             context = {
