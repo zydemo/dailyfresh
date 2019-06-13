@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% block head %}
+<script>
+    function add_cart() {
+        //这个也可以
+        // kucun = $('#add_cart').val('value').attr('value');
+        kucun = $('#add_cart').attr('value');
+        $('.popup_con').fadeIn('fast',function () {
+            setTimeout(function () {
+                $('.popup_con').fadeOut('fast');
+                window.location.href ='/cart/'+kucun
+            },2000);
+        });
+    }
+</script>
+{% endblock head %}
 {% block body %}
 	<div class="main_con clearfix">
 		<div class="left_menu_con clearfix">
@@ -11,69 +26,49 @@
 			</ul>
 		</div>
 		<div class="right_content clearfix">
-				<div class="info_con clearfix">
-				<h3 class="common_title2">基本信息</h3>
-						<ul class="user_info_list">
-							<li><span>用户姓名：</span>{{user_name}}</li>
-							<li><span>联系邮箱：</span>{{user_email}}</li>
-							<!--<li><span>联系地址：</span>{{user_address}}</li>-->
-						</ul>
-				</div>
+			<div class="info_con clearfix">
+                <h3 class="common_title2">基本信息</h3>
+                    <ul class="user_info_list">
+                        <li><span>用户姓名：</span>{{user_name}}</li>
+                        <li><span>联系邮箱：</span>{{user_email}}</li>
+                        <!--<li><span>联系地址：</span>{{user_address}}</li>-->
+                    </ul>
+			</div>
 				
-				<h3 class="common_title2">最近浏览</h3>
-				<div class="has_view_list">
-					<ul class="goods_type_list clearfix">
+			<h3 class="common_title2">最近浏览</h3>
+            <div class="has_view_list">
+                <ul class="goods_type_list clearfix">
+                {% if goods_list|length > 0 %}
+				{% for goods in goods_list %}
 				<li>
-					<a href="detail.html"><img src='{% static "images/goods/goods003.jpg" %}'></a>
-					<h4><a href="detail.html">大兴大棚草莓</a></h4>
+					<a href="/itemId={{goods.id}}"><img src='/static/media/{{goods.gpic}}' title="{{goods.gtitle}}"></a>
+					<h4><a href="/itemId={{goods.id}}" title="{{goods.gtitle}}">{{goods.gtitle}}</a></h4>
 					<div class="operate">
-						<span class="prize">￥16.80</span>
-						<span class="unit">16.80/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
+						<span class="prize">￥{{goods.gprice}}</span>
+						<span class="unit">{{goods.gunit}}</span>
+                        {% if goods.gkucun > 0 %}
+						<a href="/cart/add{{goods.id}}_1/" class="add_goods" title="加入购物车"></a>
+                        {% else %}
+                        <a href="javascript:add_cart()" value="add{{goods.id}}_0/" class="add_goods" id="add_cart" title="加入购物车"></a>
+                        <!--<a href="/cart/add{{goods.id}}_0/" class="add_goods" title="加入购物车"></a>-->
+                        {% endif %}
 					</div>
 				</li>
-
-				<li>
-					<a href="#"><img src='{% static "images/goods/goods004.jpg" %}'></a>
-					<h4><a href="#">吐鲁番梨光杏</a></h4>
-					<div class="operate">
-						<span class="prize">￥5.50</span>
-						<span class="unit">5.50/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src='{% static "images/goods/goods005.jpg" %}'></a>
-					<h4><a href="#">黄肉桃</a></h4>
-					<div class="operate">
-						<span class="prize">￥10.00</span>
-						<span class="unit">10.00/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src='{% static "images/goods/goods006.jpg" %}'></a>
-					<h4><a href="#">进口西梅</a></h4>
-					<div class="operate">
-						<span class="prize">￥28.80</span>
-						<span class="unit">28.8/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src='{% static "images/goods/goods007.jpg" %}'></a>
-					<h4><a href="#">香梨</a></h4>
-					<div class="operate">
-						<span class="prize">￥6.45</span>
-						<span class="unit">6.45/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-			</ul>
-		</div>
+                {% endfor %}
+                 {% else %}
+                     <div class="nofile" style="min-height:216px;text-align: center;">
+                         <a href="{% url 'index' %}"><img src='{% static "images/img_notfound.png" %}' title="点击图片返回首页"></a>
+                  <p class="text" style="margin: 30px 0 30px;font-weight: bold;">暂无浏览记录，快去浏览产品吧，点击图片<a href="{% url 'index' %}">返回首页</a></p>
+             </div>
+                 {% endif %}
+             <div class="popup_con">
+                <div class="popup">
+                    <p>已加购物车，库存为0不可购买！</p>
+                </div>
+                <div class="mask"></div>
+             </div>
+			    </ul>
+		    </div>
 		</div>
 	</div>
 

@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from df_user import user_decorator
 from .models import CartInfo
 from django.http import JsonResponse
+from df_goods.models import GoodsInfo
 
 # 购物车，装饰器
 @user_decorator.login
@@ -32,6 +33,9 @@ def add(request,gid,count):
         return JsonResponse({'count':count})
     # 查询购物车中是已有该商品,如果有则数量增加,如果没有则新增一个商品
     carts = CartInfo.objects.filter(user_id=uid,goods_id=gid)
+    # 和库存进行对比，如果数量大于库存，则购物车数量等于库存
+    goods = GoodsInfo.objects.get(id=gid)
+    kucun = goods.gkucun
     if len(carts)>=1:
         cart = carts[0]
         cart.count = cart.count + count
@@ -40,6 +44,8 @@ def add(request,gid,count):
         cart.user_id = uid
         cart.goods_id = gid
         cart.count = count
+    if cart.count > kucun:
+        cart.count = kucun
     cart.save()
     # 如果是ajax请求则返回json,否则转向购物车  测试  正常都不转
     if request.is_ajax():

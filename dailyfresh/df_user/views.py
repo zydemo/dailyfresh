@@ -4,6 +4,7 @@ from hashlib import sha1
 from django.http import JsonResponse,HttpResponseRedirect
 from . import user_decorator
 from df_order.models import OrderInfo
+from df_goods.models import GoodsInfo
 # 导入自带的分页插件
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
@@ -115,7 +116,20 @@ def logout(request):
 def user_center_info(request):
     username = request.session.get('user_name')
     user=UserInfo.objects.filter(uname=username).first()
+    goods_list = []
 
+    # 里面存储了最近浏览的五个产品id，session方法,str类型
+    # key = str(request.session.get('user_id'))
+    # goods_ids2 = request.session.get(key,'')
+    # if len(goods_ids2) > 0:
+    #     for goods_id in goods_ids2.split(","):
+    #         goods_list.append(GoodsInfo.objects.get(id=int(goods_id)))
+
+    # 里面存储了最近浏览的五个产品id，cookie方法
+    goods_ids = request.COOKIES.get('goods_ids','')
+    if len(goods_ids)>0:
+        for goods_id in goods_ids.split(","):
+            goods_list.append(GoodsInfo.objects.get(id=int(goods_id)))
     context = {
         'title':'用户中心',
         'page_name':1,
@@ -123,7 +137,7 @@ def user_center_info(request):
         'user_address':user.uaddress,
         'user_name':username,
         'user_email':user.uemail,
-
+        'goods_list':goods_list,
     }
     return render(request,'df_user/user_center_info.html',context)
 

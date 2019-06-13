@@ -37,8 +37,8 @@
 	    }
 	    //收件人判断
         function check_shou(){
-		var len = $('#ushou').val().length;
-		if(len>0)
+		var len = $('#ushou').val();
+		if(len)
 		{
 			$('#ushou').next().hide();
 			error_shou = false;
@@ -52,8 +52,8 @@
 	    }
         //详细地址判断
         function check_address(){
-		var len = $('#uaddress').val().length;
-		if(len>0)
+		var len = $('#uaddress').val();
+		if(len)
 		{
 			$('#uaddress').next().hide();
 			error_address = false;

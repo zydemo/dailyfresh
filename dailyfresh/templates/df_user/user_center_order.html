@@ -27,8 +27,8 @@
 				<h3 class="common_title2">全部订单</h3>
             {% if page|length == 0 %}
 			 <div class="nofile" style="min-height:335px;text-align: center;">
-                  <img src='{% static "images/img_notfound.png" %}'>
-                  <p class="text" style="margin: 30px 0 30px;font-weight: bold;">暂无订单，快去购买产品吧，<a href="/">返回首页</a></p>
+                 <a href="{% url 'index' %}"><img src='{% static "images/img_notfound.png" %}' title="点击图片返回首页"></a>
+                  <p class="text" style="margin: 30px 0 30px;font-weight: bold;">暂无订单，快去购买产品吧，点击图片<a href="{% url 'index' %}">返回首页</a></p>
              </div>
             {% else %}
 			{% for orderinfo in page %}
@@ -46,7 +46,12 @@
 								<ul class="order_goods_list clearfix">					
                                     <li class="col01"><a href="/itemId={{order_detail.goods.id}}" target="_blank" title="{{order_detail.goods.gtitle}}"><img src='/static/media/{{order_detail.goods.gpic}}'></a></li>
                                     {% if order_detail.goods.gtitle|length >= 14 %}
-                                    <li class="col02"><a href="/itemId={{order_detail.goods.id}}" target="_blank" title="{{order_detail.goods.gtitle}}">{{order_detail.goods.gtitle|slice:'14'}}...<em class="good_price">{{order_detail.goods.gprice}}元/{{order_detail.goods.gunit}}</em></a></li>
+                                    <li class="col02"><a href="/itemId={{order_detail.goods.id}}" target="_blank" title="{{order_detail.goods.gtitle}}">{{order_detail.goods.gtitle|slice:'14'}}...
+                                        {% if order_detail.goods.gunit|length >= 5 %}
+										<em class="good_price">{{order_detail.goods.gprice}}元/{{order_detail.goods.gunit|slice:'5'}}...</em></a></li>
+                                        {% else %}
+                                        <em class="good_price">{{order_detail.goods.gprice}}元/{{order_detail.goods.gunit}}</em></a></li>
+                                        {% endif %}
                                     {% else %}
                                     <li class="col02"><a href="/itemId={{order_detail.goods.id}}" target="_blank" title="{{order_detail.goods.gtitle}}">{{order_detail.goods.gtitle}}<em class="good_price">{{order_detail.goods.gprice}}元/{{order_detail.goods.gunit}}</em></a></li>
                                     {% endif %}

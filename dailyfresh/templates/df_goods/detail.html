@@ -80,16 +80,23 @@
                     $('#show_count').text(data.count);
                 });
             }
-            //点击购买 还得调整
+            //点击购买，如果库存为0提示不能购买并添加到购物车
             $('#buy_btn').click(function () {
                 num = parseInt($('.num_show').val());
-                $.get('/cart/add{{goods.id}}_' + num + '/', function (data) {
-                    $('#show_count').text(data.count);
-                });
-                location.href = '/cart/add{{goods.id}}_' + num + '/';
-                });
-
-        })
+                kucun = parseInt($('.goods_kucun').text());
+                if(kucun > 0){
+                    location.href = '/cart/add{{goods.id}}_' + num + '/';
+                }else{
+                    num = 0;
+                    $('.popup_con').fadeIn('fast',function () {
+                        setTimeout(function () {
+                            $('.popup_con').fadeOut('fast');
+                            location.href = '/cart/add{{goods.id}}_' + num + '/';
+                        },2000);
+                    });
+                }
+            });
+        });
     </script>
 
 {%endblock head%}
@@ -161,6 +168,12 @@
 				<a href="javascript:;" class="buy_btn" id="buy_btn">立即购买</a>
 				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>				
 			</div>
+             <div class="popup_con">
+                <div class="popup">
+                    <p>已加购物车，库存为0不可购买！</p>
+                </div>
+                <div class="mask"></div>
+             </div>
 		</div>
 	</div>
 
