@@ -27,8 +27,9 @@
 				<h3 class="common_title2">全部订单</h3>
             {% if page|length == 0 %}
 			 <div class="nofile" style="min-height:335px;text-align: center;">
-                 <a href="{% url 'index' %}"><img src='{% static "images/img_notfound.png" %}' title="点击图片返回首页"></a>
-                  <p class="text" style="margin: 30px 0 30px;font-weight: bold;">暂无订单，快去购买产品吧，点击图片<a href="{% url 'index' %}">返回首页</a></p>
+                 <a href="{% url 'index' %}"><img src='{% static "images/img_notfound.png" %}' title="返回首页购买产品"></a>
+                  <p class="text" style="margin: 30px 0 30px;font-weight: bold;font-size:15px;">暂无订单，点击图片
+					<a href="{% url 'index' %}" style="color: #ff6600;">返回首页购买产品</a></p>
              </div>
             {% else %}
 			{% for orderinfo in page %}

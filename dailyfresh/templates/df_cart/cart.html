@@ -179,6 +179,7 @@
 		<li class="col05">小计</li>
 		<li class="col06">操作</li>
 	</ul>
+{% if carts|length > 0 %}
 {% for cart in carts %}
 	<ul class="cart_list_td clearfix" id="{{ cart.id }}">
 		<li class="col01"><input type="checkbox" name="" checked="checked"></li>
@@ -203,7 +204,6 @@
 		<li class="col08"><a href="javascript:;" class="delete">删除</a></li>
 	</ul>
 {% endfor %}
-
 	<ul class="settlements">
 		<li class="col01"><input type="checkbox" name="全选" checked="checked" id="check_all"></li>
 		<li class="col02">全选</li>
@@ -218,6 +218,13 @@
 		</div>
 		<div class="mask"></div>
 	</div>
+{% else %}
+  <div class="nofile" style="min-height:216px;text-align: center;margin-top: 22px;">
+	  <a href="{% url 'index' %}"><img src='{% static "images/img_notfound.png" %}' title="返回首页选购商品"></a>
+	  <p class="text" style="margin: 30px 0 30px;font-weight: bold;font-size:15px;">购物车内暂无商品，点击图片
+       <a href="{% url 'index' %}" style="color: #ff6600;">返回首页选购商品！</a></p>
+  </div>
+{% endif %}
 <!--点击浏览器的返回按钮让页面刷新，防止购物车删除产品点击结算后页面后退到购物车删除产品还在的情况-->
 <script type="text/javascript" src='{% static "js/jquery.cookie.min.js" %}'></script>
 <script>

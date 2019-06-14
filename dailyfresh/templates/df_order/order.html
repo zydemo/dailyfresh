@@ -70,7 +70,7 @@
 		</ul>
         {% endfor %}
 	</div>
-
+    {% if carts|length > 0 %}
 	<h3 class="common_title">总金额结算</h3>
 
 	<div class="common_list_con clearfix">
@@ -84,60 +84,73 @@
 	<div class="order_submit clearfix">
 		<a href="javascript:;" id="order_btn">提交订单</a>
 	</div>	
-
-
 	<div class="popup_con">
 		<div class="popup">
 			<p>订单提交成功！</p>
 		</div>
-		
 		<div class="mask"></div>
 	</div>
+{% else %}
+  <div class="nofile" style="min-height:216px;text-align: center;margin-top: 22px;">
+	  <a href="{% url 'index' %}"><img src='{% static "images/img_notfound.png" %}' title="返回首页选购商品"></a>
+	  <p class="text" style="margin: 30px 0 30px;font-weight: bold;font-size:15px;">没有可提交的产品订单，点击图片
+       <a href="{% url 'index' %}" style="color: #ff6600;">返回首页选购商品！</a></p>
+  </div>
+{% endif %}
 <script>
     $('#order_btn').click(function () {
-        // 检查收货地址
-        $('.user_info_check').each(function () {
-            text = $(this).text();
-            number = 0;
-            if (text == ''){
-                number = 1;
-                return false;
-            }
-        });
-        if(number == 1){
-            alert("请填写正确的收货地址");
-            window.location.href='/user_center_site/';
-        }else{ //只有填写完正确收货地址才可以提交
-             //获取所有id，拼接成字符串
-        cartids = '';
-        $('.goods_list_td').each(function () {
-            cartids = cartids + $(this).attr('id') + ',';
-        });
-        // 去掉最后一个,
-        cartids = cartids.substring(0,cartids.length-1);
-        total = {{ total_trans_price }}
+        {% if request.session.user_name|default:'' != '' %}
+            // alert("ok");
+            // 检查收货地址
+            $('.user_info_check').each(function () {
+                text = $(this).text();
+                number = 0;
+                if (text == ''){
+                    number = 1;
+                    return false;
+                }
+            });
+            if(number == 1){
+                alert("请填写正确的收货地址");
+                window.location.href='/user_center_site/';
+            }else{ //只有填写完正确收货地址才可以提交
+                 //获取所有id，拼接成字符串
+            cartids = '';
+            $('.goods_list_td').each(function () {
+                cartids = cartids + $(this).attr('id') + ',';
+            });
+            // 去掉最后一个,
+            cartids = cartids.substring(0,cartids.length-1);
+            total = {{ total_trans_price }}
 
-        data = {
-            'cart_ids':cartids,
-            'total':total,
-            'csrfmiddlewaretoken':'{{ csrf_token }}'
-        };
+            data = {
+                'cart_ids':cartids,
+                'total':total,
+                'csrfmiddlewaretoken':'{{ csrf_token }}'
+            };
 
-        //先发请求
-        $.post('/order_handle/',data,function (data) {
-            //成功
-            if(data.ok == 1){
-                localStorage.setItem('order_finish',2);
-                $('.popup_con').fadeIn('fast',function () {
-                    setTimeout(function () {
-                        $('.popup_con').fadeOut('fast',function () {
-                            window.location.href = '/user_center_order/1/'
-                        });
-                    },2000);
-                });
+            //先发请求
+            $.post('/order_handle/',data,function (data) {
+                //成功
+                if(data.ok == 1){
+                    localStorage.setItem('order_finish',2);
+                    $('.popup_con').fadeIn('fast',function () {
+                        setTimeout(function () {
+                            $('.popup_con').fadeOut('fast',function () {
+                                window.location.href = '/user_center_order/1/'
+                            });
+                        },2000);
+                    });
+                }else{
+                    alert("已退出登录，请先登录后再购买");
+                    location.reload(true);
+                }
+            });
             }
-        });
-        }
+        {% else %}
+            alert("已退出登录，请先登录后再购买");
+            location.reload(true);
+        {% endif %}
 
     });
 </script>

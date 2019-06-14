@@ -7,21 +7,27 @@ from df_goods.models import GoodsInfo
 # 购物车，装饰器
 @user_decorator.login
 def cart(request):
-    uid = request.session['user_id']
-    carts = CartInfo.objects.filter(user_id = uid)
-    context = {
-        'title':'购物车',
-        'page_name': 1,
-        'carts':carts,
-        # 加个判断值，这个值使cart页面中继承base时不用base里面的刷新购物车功能
-        'refresh':1,
+    try:
+        uid = request.session['user_id']
+        carts = CartInfo.objects.filter(user_id = uid)
+        context = {
+            'title':'购物车',
+            'page_name': 1,
+            'carts':carts,
+            # 加个判断值，这个值使cart页面中继承base时不用base里面的刷新购物车功能
+            'refresh':1,
 
-    }
-    return render(request,'df_cart/cart.html',context)
+        }
+        return render(request,'df_cart/cart.html',context)
+    except Exception as e:
+        print("////",e)
+        redirect('/')
 
 # 添加
 @user_decorator.login
 def add(request,gid,count):
+    # if request.is_ajax(): # 这个还得研究不然会影响详情页直接购买跳转
+    # 直接输入http://127.0.0.1:8000/cart/add1_2则会给购物车id为1的产品数量增加2,
     # 获取用户id
     uid = request.session['user_id']
     # 将商品id和数量转换为int
@@ -54,7 +60,9 @@ def add(request,gid,count):
     else:
         return redirect('/cart/') # 转到购物车
 
+# @user_decorator.login
 def edit(request,gid,count):
+    data = {}
     try:
         if request.is_ajax():
             goods = CartInfo.objects.get(id=int(gid))
@@ -63,8 +71,12 @@ def edit(request,gid,count):
             data = {'ok':1}
     except Exception as e:
         data = {'ok':int(count)}
-    return JsonResponse(data)
+    if data=={}:
+        return redirect('/')
+    else:
+        return JsonResponse(data)
 def delete(request,gid):
+    data = {}
     try:
         if request.is_ajax():
             goods = CartInfo.objects.get(id=int(gid))
@@ -72,5 +84,7 @@ def delete(request,gid):
             data={'ok':1}
     except Exception as e:
         data = {'ok':0,'e':e}
-    return JsonResponse(data)
-
+    if data == {}:
+        return redirect('/')
+    else:
+        return JsonResponse(data)

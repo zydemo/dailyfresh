@@ -57,8 +57,9 @@
                 {% endfor %}
                  {% else %}
                      <div class="nofile" style="min-height:216px;text-align: center;">
-                         <a href="{% url 'index' %}"><img src='{% static "images/img_notfound.png" %}' title="点击图片返回首页"></a>
-                  <p class="text" style="margin: 30px 0 30px;font-weight: bold;">暂无浏览记录，快去浏览产品吧，点击图片<a href="{% url 'index' %}">返回首页</a></p>
+                         <a href="{% url 'index' %}"><img src='{% static "images/img_notfound.png" %}' title="返回首页浏览产品"></a>
+                  <p class="text" style="margin: 30px 0 30px;font-weight: bold;font-size:15px;">暂无浏览记录，点击图片
+					<a href="{% url 'index' %}" style="color: #ff6600;">返回首页浏览产品</a></p>
              </div>
                  {% endif %}
              <div class="popup_con">
