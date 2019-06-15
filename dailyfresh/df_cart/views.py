@@ -19,8 +19,7 @@ def cart(request):
 
         }
         return render(request,'df_cart/cart.html',context)
-    except Exception as e:
-        print("////",e)
+    except:
         redirect('/')
 
 # 添加
