@@ -17,14 +17,14 @@ class OrderInfo(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return "{0}在{1}的订单".format(self.user.uname,self.odate)
+        return "用户{0}在{1}的订单".format(self.user.uname,self.odate.strftime("%Y-%m-%d %H:%M:%S"))
 
 # 大订单中的具体某一商品订单，关于支付、物流信息
 class OrderDetailInfo(models.Model):
     goods = models.ForeignKey(GoodsInfo,on_delete=models.CASCADE,verbose_name='商品')
     order = models.ForeignKey(OrderInfo,on_delete=models.CASCADE,verbose_name='订单信息')
     price = models.DecimalField(max_digits=7,decimal_places=2,verbose_name='商品价格')
-    count = models.IntegerField(verbose_name='商品数量')
+    count = models.IntegerField(verbose_name='购买商品数量')
 
     class Meta:
         verbose_name = '订单详情'
