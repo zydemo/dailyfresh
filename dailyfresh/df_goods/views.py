@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from .models import *
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage,InvalidPage
 
 # 主页
 def index(request):
@@ -120,4 +120,47 @@ def list(request,tid,pindex,sort): # 类型id,页码,排序规则（人气、价
         'guest_cart':1
     }
     return render(request,'df_goods/list.html',context)
+
+# 搜索
+def search(request):
+    from django.db.models import Q
+    keywords=request.GET.get('q','')
+    pindex = request.GET.get('page',1)
+    # 搜索结果的状态，有结果则为1
+    search_status = 1
+    guest_cart,page_name = 1,0
+    # 这里按照标题、简介、分类搜索，按照点击量倒序
+    goods_list = GoodsInfo.objects.filter(
+        Q(gtitle__icontains=keywords)|
+        Q(gjianjie__icontains=keywords)|
+        Q(gcontent__icontains=keywords)).order_by('-gclick')
+    if goods_list.count() == 0:
+        # 如果搜索结果为空，返回推荐商品
+        search_status = 0
+        goods_list=GoodsInfo.objects.all().order_by('-gclick')[:4]
+    paginator = Paginator(goods_list,6)
+    # page = paginator.page(int(pindex))
+    try:
+        page = paginator.page(int(pindex))  # 获取当前页码的记录
+    except PageNotAnInteger:
+        page = paginator.page(1)  # 如果用户输入的页码不是整数时,显示第1页的内容
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
+    except:
+        page = paginator.page(paginator.num_pages)
+    context={
+        'title':'搜索列表',
+        'search_status':search_status,
+        'page':page,
+        'paginator':paginator,
+        'guest_cart':guest_cart,
+        'page_name':page_name,
+        'keywords':keywords,
+        'goods_list':goods_list
+    }
+    return render(request,'df_goods/search.html',context)
+
+
+
+
 

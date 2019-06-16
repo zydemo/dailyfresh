@@ -185,7 +185,12 @@
 		<li class="col01"><input type="checkbox" name="" checked="checked"></li>
         <li class="col02"><a href="/itemId={{cart.goods.id}}" target="_blank" title="{{cart.goods.gtitle}}"><img src="/static/media/{{cart.goods.gpic}}/"></a></li>
         {% if cart.goods.gtitle|length >= 18 %}
-		<li class="col03"><a href="/itemId={{cart.goods.id}}" target="_blank" title="{{cart.goods.gtitle}}">{{cart.goods.gtitle|slice:'18'}}...<br><em>{{cart.goods.gprice}}元/{{cart.goods.gunit}}</em>
+		<li class="col03"><a href="/itemId={{cart.goods.id}}" target="_blank" title="{{cart.goods.gtitle}}">{{cart.goods.gtitle|slice:'18'}}...<br>
+			{% if cart.goods.gunit|length >= 7 %}
+            <em title="{{cart.goods.gprice}}元/{{cart.goods.gunit}}">{{cart.goods.gprice}}元/{{cart.goods.gunit|slice:'7'}}...</em>
+            {% else %}
+            <em>{{cart.goods.gprice}}元/{{cart.goods.gunit}}</em>
+            {% endif %}
         <br><span>库存：</span><span class="goods_kucun">{{ cart.goods.gkucun }}</span></a></li>
         {% else %}
 		<li class="col03"><a href="/itemId={{cart.goods.id}}" target="_blank" title="{{cart.goods.gtitle}}">{{cart.goods.gtitle}}<br><em>{{cart.goods.gprice}}元/{{cart.goods.gunit}}</em>

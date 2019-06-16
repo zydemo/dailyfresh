@@ -48,7 +48,7 @@
             $('#add_cart').click(function(){
                 $(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'});
                 if ($('.login_btn').text().indexOf('登录') >= 0){
-                    alert("请先登录后再购买");
+                    // alert("请先登录后再购买");
                     location.href = '/login/';
                     return;
                 }
@@ -83,7 +83,7 @@
             //点击购买，如果库存为0提示不能购买并添加到购物车
             $('#buy_btn').click(function () {
                 if ($('.login_btn').text().indexOf('登录') >= 0){
-                    alert("请先登录后再购买");
+                    // alert("请先登录后再购买");
                     location.href = '/login/';
                     return;
                 }else{

@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block head %}
+<script>
+    function add_cart() {
+         if ($('.login_btn').text().indexOf('登录') >= 0){
+                // alert("请先登录后再购买");
+                location.href = '/login/';
+                return;
+         }else{
+             //这个也可以
+            // kucun = $('#add_cart').val('value').attr('value');
+            kucun = $('#add_cart').attr('value');
+            $('.popup_con').fadeIn('fast',function () {
+                setTimeout(function () {
+                    $('.popup_con').fadeOut('fast');
+                    window.location.href ='/cart/'+kucun
+                },2000);
+            });
+         }
+    }
+</script>
+{% endblock head%}
+
+{% block body %}
+    <div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>
+				<span></span>
+				<ul class="subnav">
+					<li><a href="/list1_1_1/" class="fruit">新鲜水果</a></li>
+					<li><a href="/list2_1_1/" class="seafood">海鲜水产</a></li>
+					<li><a href="/list3_1_1/" class="meet">猪牛羊肉</a></li>
+					<li><a href="/list4_1_1/" class="egg">禽类蛋品</a></li>
+					<li><a href="/list5_1_1/" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="/list6_1_1/" class="ice">速冻食品</a></li>
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="{% url 'index' %}">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+    <!--<script type="text/javascript">-->
+        <!--if({{ search_status }}==0){-->
+            <!--alert("您的查询结果为空，为您推荐以下商品");-->
+        <!--}-->
+    <!--</script>-->
+	<div class="breadcrumb">
+		{% if search_status == 0 %}
+        <b>{{keywords}}</b> 搜索结果：共0条，为您推荐以下商品：
+        <a style="float: right;">第{{page.number}}页/共{{paginator.num_pages}}页</a>
+        {% else %}
+		<b>{{keywords}}</b> 搜索结果：共{{goods_list|length}}条
+        <a style="float: right;">第{{page.number}}页/共{{paginator.num_pages}}页</a>
+        {% endif %}
+	</div>
+
+    <div class="main_wrap clearfix">
+        <ul class="goods_type_list clearfix">
+            {%  for item in page %}
+            <li>
+                <a href="/itemId={{ item.id }}" target="_blank"><img src="/static/media/{{ item.gpic }}" title="{{ item.gtitle }}"></a>
+                <h4><a href="/itemId={{ item.id }}" title="{{ item.gtitle }}">{{ item.gtitle }}</a></h4>
+                <div class="operate">
+                    <span class="prize">￥{{ item.gprice }}</span>
+                    {% if item.gunit|length >= 10 %}
+                    <span class="unit">{{ item.gunit|slice:'10' }}...</span>
+                    {% else %}
+                    <span class="unit">{{ item.gunit }}</span>
+                    {% endif %}
+                    {% if item.gkucun > 0 %}
+						<a href="/cart/add{{item.id}}_1/" class="add_goods" title="加入购物车"></a>
+                        {% else %}
+                        <a href="javascript:add_cart()" value="add{{item.id}}_0/" class="add_goods" id="add_cart" title="加入购物车"></a>
+                        {% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+          <div class="popup_con">
+                <div class="popup">
+                    <p>已加购物车，库存为0不可购买！</p>
+                </div>
+                <div class="mask"></div>
+             </div>
+        <div class="pagenation">
+            {% if page.has_previous %}
+                <a href="/search/?q={{ keywords }}&amp;page=1">首页</a>
+				<a href="/search/?q={{ keywords }}&amp;page={{ page.previous_page_number }}">&lt;上一页</a>
+            {% else %}
+                <a>首页</a>
+                <a>&lt;上一页</a>
+			{% endif %}
+            {% if page.number <= 3 %}
+                {% for pindex in paginator.page_range %}
+                    {% if forloop.counter <= 5 %}
+                        {% ifnotequal pindex page.number %}
+                        <a href="/search/?q={{ keywords }}&amp;page={{pindex}}" >{{pindex}}</a>
+                        {% endifnotequal %}
+                            <!--如果当前页码数和num相等，则不会出现连接地址，也不能点击，并且加上背景色样式-->
+                            {% ifequal pindex page.number %}
+                                <a class="active">{{pindex}}</a>
+                            {% endifequal %}
+                    {% endif %}
+                {% endfor %}
+
+            {% else %}
+                {% if page.number|add:1 > paginator.num_pages %}
+                    <a href="/search/?q={{ keywords }}&amp;page={{page.number|add:-4}}">{{page.number|add:-4}}</a>
+                {% endif %}
+                {% if page.number|add:2 > paginator.num_pages %}
+                    <a href="/search/?q={{ keywords }}&amp;page={{page.number|add:-3}}">{{page.number|add:-3}}</a>
+                {% endif %}
+                <a href="/search/?q={{ keywords }}&amp;page={{page.number|add:-2}}">{{page.number|add:-2}}</a>
+                <a href="/search/?q={{ keywords }}&amp;page={{page.number|add:-1}}">{{page.number|add:-1}}</a>
+                <a class="active">{{ page.number }}</a>
+                {% if page.number|add:1 <= paginator.num_pages %}
+                    <a href="/search/?q={{ keywords }}&amp;page={{page.number|add:1}}">{{page.number|add:1}}</a>
+                {% endif %}
+                {% if page.number|add:2 <= paginator.num_pages %}
+                    <a href="/search/?q={{ keywords }}&amp;page={{page.number|add:2}}">{{page.number|add:2}}</a>
+                {% endif %}
+            {% endif %}
+            {% if page.has_next %}
+				<a href="/search/?q={{ keywords }}&amp;page={{page.next_page_number}}">下一页&gt;</a>
+                <a href="/search/?q={{ keywords }}&amp;page={{paginator.num_pages}}">末页</a>
+            {% else %}
+                <a>下一页&gt;</a>
+                <a>末页</a>
+            {% endif %}
+			</div>
+
+
+        <!--<div class="pagenation">-->
+			<!--{#判断是否是第一页#}-->
+            <!--{% if page.has_previous %}-->
+                <!--<a href="/search/?q={{ keywords }}&amp;page={{ page.previous_page_number }}">上一页</a>-->
+            <!--{% endif %}-->
+
+            <!--{% for pindex in paginator.page_range %}-->
+                <!--{% if pindex == page.number %}-->
+                    <!--<a href="#" class="active">{{ pindex }}</a>-->
+                <!--{% else %}-->
+                    <!--<a href="/search/?q={{ keywords }}&amp;page={{ pindex }}">{{ pindex }}</a>-->
+                <!--{% endif %}-->
+            <!--{% endfor %}-->
+
+			<!--{#是否有下一页#}-->
+            <!--{% if page.has_next %}-->
+                <!--<a href="/search/?q={{ keywords }}&amp;page={{ page.next_page_number }}">下一页></a>-->
+            <!--{% endif %}-->
+        <!--</div>-->
+    </div>
+{% endblock body %}

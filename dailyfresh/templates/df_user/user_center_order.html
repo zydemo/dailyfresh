@@ -24,7 +24,9 @@
 			</ul>
 		</div>
 		<div class="right_content clearfix">
-				<h3 class="common_title2">全部订单</h3>
+				<h3 class="common_title2">全部订单
+                <a style="float: right;font-size: 15px;color:#37ab40;">共{{order_list|length}}条数据  第{{page.number}}页/共{{paginator.num_pages}}页</a>
+                </h3>
             {% if page|length == 0 %}
 			 <div class="nofile" style="min-height:335px;text-align: center;">
                  <a href="{% url 'index' %}"><img src='{% static "images/img_notfound.png" %}' title="返回首页购买产品"></a>

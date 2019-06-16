@@ -170,7 +170,8 @@ def user_center_order(request,index): # 需要传入页数
             'title': '用户中心',
             'page_name': 1,
             'page':page,
-            'paginator':paginator
+            'paginator':paginator,
+            'order_list':order_list
         }
         return render(request,'df_user/user_center_order.html',context)
     except:

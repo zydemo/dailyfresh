@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.index,name='index'),
     path('itemId=<int:sid>', views.detail),
     re_path('list(\d+)_(\d+)_(\d+)/',views.list,name='list'),# 列表页
+    path('search/',views.search,name='search')
 ]
