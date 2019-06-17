@@ -79,7 +79,6 @@ def login_handle(request):
             s1.update(upwd.encode())
             if s1.hexdigest() == users[0].upwd:
                 url = request.COOKIES.get('url','/') # 获取登录之前的页面，如果没有跳转首页
-                print("***",request.COOKIES)
                 red = HttpResponseRedirect(url)
                 # 记住用户名，只有登录成功才可以记住
                 if jizhu != 0:
