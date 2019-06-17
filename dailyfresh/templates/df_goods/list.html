@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block head %}
+<!--<script type="text/javascript" src='{% static "js/jquery.cookie.min.js" %}'></script>-->
 <script>
     function add_cart() {
          if ($('.login_btn').text().indexOf('登录') >= 0){
                 // alert("请先登录后再购买");
-                location.href = '/login/';
+            //  u = window.location.href
+            //
+            //  document.cookie = "url=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            //   $.cookie('url',null);
+            //  $first=$.cookie('url');
+            //  alert($first);
+            //   if(!$first||$first=='null'||$first==null){
+            // //第一次进页面，肯定是没有cookie的，所以这里设置cookie的值为1，时间为7天
+            // //     $.cookie('url',u,{ expires: 7 });
+            //     document.cookie = "url="+u;
+            // }
+            //  // document.cookie = "url="+u;
+            //  // $.cookie('url1',window.location.href,{ expires: 7 });
+            //  alert(document.cookie)
+             window.location.href = '/login/';
+             // document.write("js获取上(前)一页url"+document.referrer);
                 return;
          }else{
              //这个也可以

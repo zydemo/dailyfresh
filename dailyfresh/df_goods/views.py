@@ -129,7 +129,7 @@ def search(request):
     # 搜索结果的状态，有结果则为1
     search_status = 1
     guest_cart,page_name = 1,0
-    # 这里按照标题、简介、分类搜索，按照点击量倒序
+    # 这里按照标题、简介、描述正文搜索，按照点击量倒序
     goods_list = GoodsInfo.objects.filter(
         Q(gtitle__icontains=keywords)|
         Q(gjianjie__icontains=keywords)|

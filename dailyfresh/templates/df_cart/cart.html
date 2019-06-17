@@ -144,7 +144,8 @@
                 id = $(this).parents('.cart_list_td').attr('id');
                 s = s + 'cart_id=' + id + '&';
             }else {
-                alert("库存为0的产品，不能购买");
+                // alert("库存为0的产品，不能购买");
+                showmsg_cart();
                 yes_kucun = false;
                 return false;
             }
@@ -166,6 +167,13 @@
             }
         }
     }
+    function showmsg_cart(){
+            document.getElementById("showmsg_cart").style.display = 'block';
+            setTimeout(hiden_cart,400);
+        }
+        function hiden_cart(){
+            document.getElementById("showmsg_cart").style.display='none';
+        }
 </script>
 {% endblock head %}
 {% block body %}
@@ -223,6 +231,12 @@
 		</div>
 		<div class="mask"></div>
 	</div>
+      <div class="showmsg_con" id="showmsg_cart">
+            <div class="showmsg">
+                 <p>库存为0的产品，不能购买！</p>
+            </div>
+            <div class="mask_showmsg"></div>
+        </div>
 {% else %}
   <div class="nofile" style="min-height:216px;text-align: center;margin-top: 22px;">
 	  <a href="{% url 'index' %}"><img src='{% static "images/img_notfound.png" %}' title="返回首页选购商品"></a>

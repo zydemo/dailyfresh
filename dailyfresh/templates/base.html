@@ -28,9 +28,11 @@
             $('.input_btn').click(function () {
                 q=$('.input_text').val();
                 if(q==''){
-                    alert('请输入搜索内容');
-                    // q='西红柿';
-                    // location.href='/search?q='+q+'&page=1'
+                    // alert('请输入搜索内容');
+                    //直接return不输入内容没任何反应
+                    // return;
+                    //弹窗提示
+                    showmsg();
                 }else{
                     location.href='/search?q='+q+'&page=1'
                 }
@@ -38,15 +40,21 @@
         });
 
     </script>
+    <script>
+        function showmsg(){
+            document.getElementById("showmsg_con").style.display = 'block';
+            setTimeout(hiden_search,350);
+        }
+        function hiden_search(){
+            document.getElementById("showmsg_con").style.display='none';
+        }
+    </script>
 </head>
 <body>
 	<div class="header_con">
 		<div class="header">
 			<div class="welcome fl">欢迎来到天天生鲜!</div>
 			<div class="fr">
-				<!--<div class="login_info fl">-->
-					<!--欢迎您：<em>张 山</em>-->
-				<!--</div>-->
                 {% if request.session.user_name|default:'' != '' %}
                 <div class="login_btn fl">
                         <a>欢迎您：</a>
@@ -75,6 +83,12 @@
 
 	<div class="search_bar clearfix">
 		<a href="{% url 'index' %}" class="logo fl"><img src='{% static "images/logo.png" %}'></a>
+        <div class="showmsg_con" id="showmsg_con">
+            <div class="showmsg">
+                 <p>请输入搜索内容！</p>
+            </div>
+            <div class="mask_showmsg"></div>
+        </div>
 		{% if page_name == 1 %}
         <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;{{title}}</div>
         <form method='get' action="/search/" target="_blank">
